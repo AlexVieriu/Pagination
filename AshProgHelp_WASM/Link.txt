@@ -1,0 +1,2 @@
+﻿API		: Pagination_TechSeeker_API_Dapper (https://www.youtube.com/watch?v=PWHvt34Vr1A&t=2s&ab_channel=NaveenBommidiTechSeeker)
+WASM	: https://www.youtube.com/watch?v=bGKgt_Xx1rY&t=50s&ab_channel=AshProgHelp-ProgrammingHelp

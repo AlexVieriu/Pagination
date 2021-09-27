@@ -1,0 +1,31 @@
+﻿@page "/"
+
+@inject HttpClient httpClient
+
+<MudTable ServerData="new Func<TableState, Task<TableData<Angajat>>>(LoadData)">
+    <ToolBarContent>
+        Angajati List
+    </ToolBarContent>
+
+    <HeaderContent>
+        <MudTh>Cod Angajat</MudTh>
+        <MudTh>Full Name</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Cod Angajat ">@context.CodAngajat</MudTd>
+        <MudTd DataLabel="Full Name">@context.FullName</MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager></MudTablePager>
+    </PagerContent>
+</MudTable>
+
+@code {
+    private async Task<TableData<Angajat>> LoadData(TableState tableState)
+    {
+        var response = await httpClient.GetFromJsonAsync<AngajatPagining>($"/api/Pagination?currentPageNumber={tableState.Page + 1}&pageSize={tableState.PageSize}");
+        return new TableData<Angajat>() { Items = response.Data, TotalItems = response.TotalCount};
+    }
+}
