@@ -29,7 +29,7 @@ else
     </table>
 
     <div class="pagination">
-        @if (curPage >= 1)
+        @if (curPage > 1)
         {
             <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
         }
@@ -67,8 +67,7 @@ else
     {
         curPage = 1;
 
-        AngajatiPaging = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
-                            ($"/api/Pagination?currentPageNumber={curPage}&pageSize={pageSize}");
+        AngajatiPaging = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(EndPoints.URLGetAll(curPage, pageSize));
 
         Angajati = AngajatiPaging.Data;
         totalRecords = AngajatiPaging.TotalCount;
@@ -106,36 +105,50 @@ else
 
     public async Task RefreshRecord(int currentPage)
     {
+        curPage = currentPage;
 
-        AngajatiPaging = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
-                            ($"/api/Pagination?currentPageNumber={currentPage}&pageSize={pageSize}");
+        AngajatiPaging = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(EndPoints.URLGetAll(currentPage, pageSize));
 
         Angajati = AngajatiPaging.Data;
         totalRecords = AngajatiPaging.TotalCount;
         totalPages = AngajatiPaging.TotalPages;
-        curPage = AngajatiPaging.CurrentPageNumber;
-
 
         SetPagerSize("forward");
         this.StateHasChanged();
     }
 
-    public void SetPagerSize(string direction)
+    public void SetPagerSize(string direction = null, int currentPage = 0)
     {
-        if (direction == "forward" && endPage < totalPages)
+        if (direction == "forward" && currentPage == 0)
         {
-            startPage = endPage + 1;
-            if (endPage + pagerSize < totalPages)
-                endPage = startPage + pagerSize - 1;
-            else
-                endPage = totalPages;
-            this.StateHasChanged();
+            startPage += 1;
+            endPage = startPage + pagerSize;
+            StateHasChanged();
         }
-        else if (direction == "back" && startPage > 1)
+        else if (direction == "back" && currentPage == 0)
         {
-            endPage = startPage - 1;
-            startPage = startPage - pageSize;
-            this.StateHasChanged();
+            endPage -= 1;
+            startPage = endPage - pagerSize;
+            StateHasChanged();
+        }
+
+        else if (string.IsNullOrWhiteSpace(direction))
+        {
+            int displayNrOfPages = (int)(Math.Ceiling((decimal)(pagerSize / 2)));
+
+            if (currentPage - displayNrOfPages <= 1)
+            {
+                startPage = 1;
+                endPage = startPage + pagerSize;
+                StateHasChanged();
+            }
+
+            if(currentPage + displayNrOfPages >= totalPages)
+            {
+                endPage = totalPages;
+                startPage = endPage - pagerSize;
+                StateHasChanged();
+            }
         }
     }
 }

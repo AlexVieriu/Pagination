@@ -3,21 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechSeeker_API_Dapper", "TechSeeker_API_Dapper\TechSeeker_API_Dapper.csproj", "{D6413724-F6B8-4D76-B9EE-1EE5A4753809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechSeeker_API_Dapper", "TechSeeker_API_Dapper\TechSeeker_API_Dapper.csproj", "{D6413724-F6B8-4D76-B9EE-1EE5A4753809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechSeeker_WASM_MudBlazor", "TechSeeker_WASM_MudBlazor\TechSeeker_WASM_MudBlazor.csproj", "{F023BAD5-1905-4286-B8B1-727E2393DD73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechSeeker_WASM_MudBlazor", "TechSeeker_WASM_MudBlazor\TechSeeker_WASM_MudBlazor.csproj", "{F023BAD5-1905-4286-B8B1-727E2393DD73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AshProgHelp_WASM", "AshProgHelp_WASM\AshProgHelp_WASM.csproj", "{6C03B03F-5881-4BDB-B06A-20F10F44836C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AshProgHelp_WASM", "AshProgHelp_WASM\AshProgHelp_WASM.csproj", "{6C03B03F-5881-4BDB-B06A-20F10F44836C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gavilanch3.Server", "Gavilanch3\Server\Gavilanch3.Server.csproj", "{B275B682-39D9-4455-85DC-7CF9950CD19E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gavilanch3.Server", "Gavilanch3\Server\Gavilanch3.Server.csproj", "{B275B682-39D9-4455-85DC-7CF9950CD19E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gavilanch3.Client", "Gavilanch3\Client\Gavilanch3.Client.csproj", "{F744A436-3F4E-4F60-99CF-59760F190ADB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gavilanch3.Client", "Gavilanch3\Client\Gavilanch3.Client.csproj", "{F744A436-3F4E-4F60-99CF-59760F190ADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gavilanch3.Shared", "Gavilanch3\Shared\Gavilanch3.Shared.csproj", "{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gavilanch3.Shared", "Gavilanch3\Shared\Gavilanch3.Shared.csproj", "{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WASM_SigmoidTek", "WASM_SigmoidTek\WASM_SigmoidTek.csproj", "{C8F8E262-92DF-4F9E-AEC7-76D295EFA8F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WASM_SigmoidTek", "WASM_SigmoidTek\WASM_SigmoidTek.csproj", "{C8F8E262-92DF-4F9E-AEC7-76D295EFA8F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WASM_SigmoidTek_Modified", "WASM_SigmoidTek_Modified\WASM_SigmoidTek_Modified.csproj", "{D54A5A5D-9D21-41E4-A2F8-8613B84FE225}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WASM_SigmoidTek_Modified", "WASM_SigmoidTek_Modified\WASM_SigmoidTek_Modified.csproj", "{D54A5A5D-9D21-41E4-A2F8-8613B84FE225}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AshProgHelp_WASM_Modified", "AshProgHelp_WASM_Modified\AshProgHelp_WASM_Modified.csproj", "{6C332877-14C9-42E1-B53C-44A6BB8D94E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{D54A5A5D-9D21-41E4-A2F8-8613B84FE225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D54A5A5D-9D21-41E4-A2F8-8613B84FE225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D54A5A5D-9D21-41E4-A2F8-8613B84FE225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C332877-14C9-42E1-B53C-44A6BB8D94E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C332877-14C9-42E1-B53C-44A6BB8D94E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C332877-14C9-42E1-B53C-44A6BB8D94E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C332877-14C9-42E1-B53C-44A6BB8D94E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
-﻿namespace AshProgHelp_WASM.Models
+﻿namespace AshProgHelp_WASM_Modified.Models
 {
-    public class AngajatPagining<T> where T : class
+    public class Pagination<T> where T : class
     {
         public List<T>? Data { get; set; }
         public int TotalCount { get; set; }
@@ -9,6 +9,5 @@
         public int TotalPages { get; set; }
         public bool HasPreviousPage { get; set; }
         public bool HasNextPage { get; set; }
-
     }
 }

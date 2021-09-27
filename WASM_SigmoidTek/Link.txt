@@ -1,0 +1,6 @@
+﻿
+API			: https://jsonplaceholder.typicode.com/comments
+WASM		: https://www.youtube.com/watch?v=Vnl4HM7CfSE&ab_channel=SigmoidTek
+
+Github Repo : https://github.com/Muhtar-Qong/BlazorWASMStateManagement
+

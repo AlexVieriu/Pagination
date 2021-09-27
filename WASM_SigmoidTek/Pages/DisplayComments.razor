@@ -35,8 +35,8 @@ else
 
         <tfoot>
             <Pagination TotalPages="@(totalPages != 0? totalPages :1)"
-                    PageIndex="@State.PageIndex"
-                    Radius="3"
+                    PageIndex="@PageIndex"
+                    Radius="5"
                     OnSelectedPage="@SelectPage">
             </Pagination>
         </tfoot>
@@ -46,17 +46,18 @@ else
 
 
 @code {
-    [CascadingParameter]
-    public PageIndexStateProvider State { get; set; }
+    private int PageIndex;
 
     private IEnumerable<Comment>? allComments = null;
     private IEnumerable<Comment>? comments = null;
 
-    private int itemsPerPage = 5;
+    private int itemsPerPage = 15;
     private int totalPages = 1;
 
     protected override async Task OnInitializedAsync()
     {
+        PageIndex = 1;
+
         allComments = await Http.GetFromJsonAsync<IEnumerable<Comment>>("https://jsonplaceholder.typicode.com/comments");
         if (allComments != null)
         {
@@ -64,7 +65,7 @@ else
             totalPages = (int)(allComments.Count() / itemsPerPage);
 
             //Initialize the "comments" wich will be displayed when the page loaded first time.
-            var skinCount = itemsPerPage * (State.PageIndex - 1);
+            var skinCount = itemsPerPage * (PageIndex - 1);
             comments = allComments.Skip(skinCount).Take(itemsPerPage);
         }
     }
@@ -73,8 +74,8 @@ else
     {
         if (allComments != null)
         {
-            State.PageIndex = selectedPageIndex;
-            var skipCount = itemsPerPage * (State.PageIndex - 1);
+            PageIndex = selectedPageIndex;
+            var skipCount = itemsPerPage * (PageIndex - 1);
             comments = allComments.Skip(skipCount).Take(itemsPerPage);
         }
     }

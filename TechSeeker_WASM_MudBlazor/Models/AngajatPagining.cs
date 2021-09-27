@@ -2,7 +2,7 @@
 {
     public class AngajatPagining
     {
-        public List<Angajat>? Data { get; set; }
+        public List<Angajat> Data { get; set; }
         public int TotalCount { get; set; }
     }
 }
