@@ -8,6 +8,12 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "TechSeeker_API_Dapper", Version = "v1" });
 });
 
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,6 +24,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

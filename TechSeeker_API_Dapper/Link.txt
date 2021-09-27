@@ -1,4 +1,8 @@
-﻿API		: https://www.youtube.com/watch?v=PWHvt34Vr1A&t=2s&ab_channel=NaveenBommidiTechSeeker
+﻿/*
+
+API		: https://www.youtube.com/watch?v=PWHvt34Vr1A&t=2s&ab_channel=NaveenBommidiTechSeeker
 WASM	: https://www.youtube.com/watch?v=uV-4fhWgpEs&ab_channel=NaveenBommidiTechSeeker
 
 UI Project : Pagination_WASM_MudBlazor
+
+*/

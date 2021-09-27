@@ -1,15 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
+<MudThemeProvider />
+
+<MudAppBar Color="Color.Primary">
+    <MudText Typo="Typo.h4" class="px-4">MudBlazor Wasm Sample</MudText>
+</MudAppBar>
+
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
+    <main class="pt-10 mt-5">
         <article class="content px-4">
             @Body
         </article>
