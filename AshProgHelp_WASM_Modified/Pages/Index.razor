@@ -1,0 +1,59 @@
+﻿@page "/"
+
+@inject HttpClient httpclient
+
+
+@if (Angajati == null)
+{
+    <p>Loaging...</p>
+}
+
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cod Angajat</th>
+                <th>Full Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var angajat in Angajati.Data)
+            {
+                <tr>
+                    <td>@angajat.CodAngajat</td>
+                    <td>@angajat.FullName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+  
+    <PaginationComp TotalPages="Angajati.TotalPages"
+                    TotalRecords = "Angajati.TotalCount"
+                    CurrentPage = "curPage"
+                    PageSize = "pageSize"
+                    
+                    />
+}
+
+@code {
+    public Pagination<Angajat>? Angajati;
+
+    int totalPages;
+    int totalRecords;
+    int curPage;
+    int pagerSize = 10;  // number of pages display that you can click on
+    int pageSize = 20;  // number of pages
+    int startPage;
+    int endPage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        curPage = 1;
+
+        Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
+
+        totalRecords = Angajati.TotalCount;
+        totalPages = Angajati.TotalPages;        
+    }    
+}
