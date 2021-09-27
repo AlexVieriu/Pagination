@@ -29,7 +29,7 @@ else
     </table>
 
     <div class="pagination">
-        @if (curPage >= 1)
+        @if (curPage > 1)
         {
             <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
         }
@@ -44,7 +44,7 @@ else
             </button>
         }
 
-        @if (curPage <= totalPages - 1)
+        @if (curPage <= totalPages - 2)
         {
             <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("next"))">Next</button>
         }
@@ -58,8 +58,8 @@ else
     int totalPages;
     int totalRecords;
     int curPage;
-    int pagerSize = 5;  // number of pages display that you can click on
-    int pageSize = 10;  // number of pages
+    int pagerSize = 10;  // number of pages display that you can click on
+    int pageSize = 20;  // number of pages
     int startPage;
     int endPage;
 
@@ -115,8 +115,6 @@ else
         totalPages = AngajatiPaging.TotalPages;
         curPage = AngajatiPaging.CurrentPageNumber;
 
-
-        SetPagerSize("forward");
         this.StateHasChanged();
     }
 
