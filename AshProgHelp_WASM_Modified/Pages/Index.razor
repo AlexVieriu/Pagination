@@ -27,13 +27,13 @@ else
             }
         </tbody>
     </table>
-  
-    <PaginationComp TotalPages="Angajati.TotalPages"
-                    TotalRecords = "Angajati.TotalCount"
-                    CurrentPage = "curPage"
-                    PageSize = "pageSize"
-                    
-                    />
+
+    <PaginationComp TClass="Pagination<Angajat>"
+                TotalPages="totalPages"
+                TotalRecords="totalRecords"
+                CurrentPage="curPage"
+                PageSize="pageSize" 
+                OnSelectPage = "SelectCurrentPage"/>
 }
 
 @code {
@@ -42,18 +42,27 @@ else
     int totalPages;
     int totalRecords;
     int curPage;
-    int pagerSize = 10;  // number of pages display that you can click on
-    int pageSize = 20;  // number of pages
-    int startPage;
-    int endPage;
+    int pageSize;        // number of pages
 
     protected override async Task OnInitializedAsync()
     {
         curPage = 1;
+        pageSize = 15;
 
         Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
 
+        totalPages = Angajati.TotalPages;
+        totalRecords = Angajati.TotalCount;        
+    }
+
+    public async Task SelectCurrentPage(int currentPage)
+    {
+        curPage = currentPage;
+        pageSize = 15;
+
+        Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
+
+        totalPages = Angajati.TotalPages;
         totalRecords = Angajati.TotalCount;
-        totalPages = Angajati.TotalPages;        
-    }    
+    }
 }

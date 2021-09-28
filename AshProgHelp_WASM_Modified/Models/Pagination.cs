@@ -1,6 +1,6 @@
 ﻿namespace AshProgHelp_WASM_Modified.Models
 {
-    public class Pagination<T> where T : class
+    public class Pagination<T>
     {
         public List<T>? Data { get; set; }
         public int TotalCount { get; set; }

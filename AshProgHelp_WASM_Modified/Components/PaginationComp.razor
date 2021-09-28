@@ -1,30 +1,40 @@
-﻿@*<div class="pagination">
-    @if (curPage > 1)
-    {
-        <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
-    }
+﻿@typeparam TClass
 
-    @for (var i = startPage; i <= endPage; i++)
-    {
-        var currentPage = i;
-        <button class="btn page-item @(currentPage==curPage?"btn-danger":"")"
+@inject HttpClient httpClient
+
+@if (CurrentPage != 0)
+{
+    <div class="pagination">
+        @if (CurrentPage > 1)
+        {
+            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
+        }
+
+        @for (var i = startPage; i <= endPage; i++)
+        {
+            var currentPage = i;
+            <button class="btn page-item @(currentPage==CurrentPage?"btn-danger":"")"
             @onclick="@(async()=> await RefreshRecord(currentPage))">
 
-            @currentPage
-        </button>
-    }
+                @currentPage
+            </button>
+        }
 
-    @if (curPage <= totalPages - 2)
-    {
-        <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("next"))">Next</button>
-    }
-</div>
-*@
+        @if (CurrentPage <= TotalPages - 2)
+        {
+            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("next"))">Next</button>
+        }
+    </div>
+}
 
-@code{   
+
+@code {
+    private int startPage = 0;
+    private int endPage = 0;
+
     [Parameter]
-    public T Product { get; set; }
-    [Parameter] 
+    public Pagination<TClass>? Products { get; set; }
+    [Parameter]
     public int TotalPages { get; set; }
     [Parameter]
     public int TotalRecords { get; set; }
@@ -33,68 +43,63 @@
     [Parameter]
     public int PageSize { get; set; }
     [Parameter]
-    public int NrPagesDisplayed { get; set; }
+    public int PagerSize { get; set; } = 10;
     [Parameter]
     public EventCallback<int> OnSelectPage { get; set; }
 
+    protected override void OnInitialized()
+    {
+        SetPagerSize("forward");
+    }
 
     public async Task NavigateToPage(string direction)
     {
         if (direction == "next")
         {
-            if (curPage < totalPages)
+            if (CurrentPage < TotalPages)
             {
-                if (curPage == endPage)
+                if (CurrentPage == endPage)
                     SetPagerSize("forward");
-                curPage += 1;
-                await RefreshRecord(curPage);
+                CurrentPage += 1;
+                await RefreshRecord(CurrentPage);
             }
             return;
         }
 
         else if (direction == "prev")
         {
-            if (curPage > 1)
+            if (CurrentPage > 1)
             {
-                if (curPage == startPage)
+                if (CurrentPage == startPage)
                     SetPagerSize("back");
-                curPage -= 1;
-                await RefreshRecord(curPage);
+                CurrentPage -= 1;
+                await RefreshRecord(CurrentPage);
             }
             return;
         }
     }
 
     public async Task RefreshRecord(int currentPage)
-    {        
-        Product = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
-                            ($"/api/Pagination?currentPageNumber={currentPage}&pageSize={pageSize}");
-
-        Angajati = Product.Data;
-        totalRecords = Product.TotalCount;
-        totalPages = Product.TotalPages;
-        curPage = Product.CurrentPageNumber;
-
-        this.StateHasChanged();
+    {
+        await OnSelectPage.InvokeAsync(currentPage);
     }
 
     public void SetPagerSize(string direction)
     {
-        if (direction == "forward" && endPage < totalPages)
+        if (direction == "forward" && endPage < TotalPages)
         {
             startPage = endPage + 1;
-            if (endPage + pagerSize < totalPages)
-                endPage = startPage + pagerSize - 1;
+            if (endPage + PagerSize < TotalPages)
+                endPage = startPage + PagerSize - 1;
             else
-                endPage = totalPages;
-            this.StateHasChanged();
+                endPage = TotalPages;
+            StateHasChanged();
         }
         else if (direction == "back" && startPage > 1)
         {
             endPage = startPage - 1;
-            startPage = startPage - pageSize;
-            this.StateHasChanged();
+            startPage = startPage - PagerSize;
+            StateHasChanged();
         }
     }
-
 }
