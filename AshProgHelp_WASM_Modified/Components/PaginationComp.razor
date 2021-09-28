@@ -5,8 +5,10 @@
 @if (CurrentPage != 0)
 {
     <div class="pagination">
+
         @if (CurrentPage > 1)
         {
+            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("home"))">Home</button>
             <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
         }
 
@@ -23,6 +25,7 @@
         @if (CurrentPage <= TotalPages - 2)
         {
             <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("next"))">Next</button>
+            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("end"))">End</button>
         }
     </div>
 }
@@ -77,6 +80,19 @@
             }
             return;
         }
+
+        else if (direction == "home")
+        {
+            startPage = 1;
+            endPage = startPage + PagerSize;
+        }
+
+        else if (direction == "end")
+        {
+            endPage = TotalPages;
+            startPage = endPage - PagerSize;
+        }
+
     }
 
     public async Task RefreshRecord(int currentPage)

@@ -9,17 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechSeeker_WASM_MudBlazor",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AshProgHelp_WASM", "AshProgHelp_WASM\AshProgHelp_WASM.csproj", "{6C03B03F-5881-4BDB-B06A-20F10F44836C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gavilanch3.Server", "Gavilanch3\Server\Gavilanch3.Server.csproj", "{B275B682-39D9-4455-85DC-7CF9950CD19E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gavilanch3.Client", "Gavilanch3\Client\Gavilanch3.Client.csproj", "{F744A436-3F4E-4F60-99CF-59760F190ADB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gavilanch3.Shared", "Gavilanch3\Shared\Gavilanch3.Shared.csproj", "{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WASM_SigmoidTek", "WASM_SigmoidTek\WASM_SigmoidTek.csproj", "{C8F8E262-92DF-4F9E-AEC7-76D295EFA8F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WASM_SigmoidTek_Modified", "WASM_SigmoidTek_Modified\WASM_SigmoidTek_Modified.csproj", "{D54A5A5D-9D21-41E4-A2F8-8613B84FE225}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AshProgHelp_WASM_Modified", "AshProgHelp_WASM_Modified\AshProgHelp_WASM_Modified.csproj", "{EEE5569B-7F60-41EE-8C78-8E520F350AC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AshProgHelp_WASM_Modified", "AshProgHelp_WASM_Modified\AshProgHelp_WASM_Modified.csproj", "{EEE5569B-7F60-41EE-8C78-8E520F350AC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +33,6 @@ Global
 		{6C03B03F-5881-4BDB-B06A-20F10F44836C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C03B03F-5881-4BDB-B06A-20F10F44836C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C03B03F-5881-4BDB-B06A-20F10F44836C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B275B682-39D9-4455-85DC-7CF9950CD19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B275B682-39D9-4455-85DC-7CF9950CD19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B275B682-39D9-4455-85DC-7CF9950CD19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B275B682-39D9-4455-85DC-7CF9950CD19E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F744A436-3F4E-4F60-99CF-59760F190ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F744A436-3F4E-4F60-99CF-59760F190ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F744A436-3F4E-4F60-99CF-59760F190ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F744A436-3F4E-4F60-99CF-59760F190ADB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C5F8D39-7DDA-4633-90C8-4A20F70FA0B2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8F8E262-92DF-4F9E-AEC7-76D295EFA8F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8F8E262-92DF-4F9E-AEC7-76D295EFA8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8F8E262-92DF-4F9E-AEC7-76D295EFA8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
