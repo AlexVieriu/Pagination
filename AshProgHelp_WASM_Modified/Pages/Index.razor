@@ -48,7 +48,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         curPage = 1;
-        pageSize = 15;
+        pageSize = 10;
 
         Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
 
@@ -59,8 +59,7 @@ else
     public async Task SelectCurrentPage(int currentPage)
     {
         curPage = currentPage;
-        pageSize = 15;
-
+   
         Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
 
         totalPages = Angajati.TotalPages;
