@@ -4,36 +4,48 @@
 
 @if (CurrentPage != 0)
 {
-    <div class="pagination">
+    <div class="d-flex justify-content-between">
+        <div class="pagination">
+            @if (CurrentPage > 1)
+            {
+                <button class="btn page-link" @onclick="@(async ()=> await NavigateToPage("home"))">Home</button>
+                <button class="btn page-link" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
+            }
+            @for (var i = startPage; i <= endPage; i++)
+            {
+                var currentPage = i;
+                <button class="btn page-link"
+                @onclick="@(async()=> await RefreshRecord(currentPage))">
 
-        @if (CurrentPage > 1)
-        {
-            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("home"))">Home</button>
-            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("prev"))">Prev</button>
-        }
-
-        @for (var i = startPage; i <= endPage; i++)
-        {
-            var currentPage = i;
-            <button class="btn page-item @(currentPage==CurrentPage?"btn-danger":"")"
-            @onclick="@(async()=> await RefreshRecord(currentPage))">
-
-                @currentPage
-            </button>
-        }
-
-        @if (CurrentPage <= TotalPages - 2)
-        {
-            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("next"))">Next</button>
-            <button class="btn page-item" @onclick="@(async ()=> await NavigateToPage("end"))">End</button>
-        }
+                    @currentPage
+                </button>
+            }
+            @if (CurrentPage <= TotalPages - 2)
+            {
+                <button class="btn page-link" @onclick="@(async ()=> await NavigateToPage("next"))">Next</button>
+                <button class="btn page-link" @onclick="@(async ()=> await NavigateToPage("end"))">End</button>
+            }
+        </div>
+        <div>
+            <select class="dropdown" @bind="PageSize">
+                @foreach (var pagesize in pageSizeOption)
+                {
+                    <option value="@pagesize" @onclick="@(() => SelectPageSize(pagesize))">
+                        @pagesize
+                    </option>
+                }
+            </select>
+        </div>
     </div>
+
 }
 
 
 @code {
     private int startPage = 0;
     private int endPage = 0;
+    private int[] pageSizeOption = new int[] { 5, 10, 20, 50 };
+
 
     [Parameter]
     public Pagination<TClass>? Products { get; set; }
@@ -49,6 +61,8 @@
     public int PagerSize { get; set; } = 10;
     [Parameter]
     public EventCallback<int> OnSelectPage { get; set; }
+    [Parameter]
+    public EventCallback<int> OnSelectPageSize { get; set; }
 
     protected override void OnInitialized()
     {
@@ -117,5 +131,10 @@
             startPage = startPage - PagerSize;
             StateHasChanged();
         }
+    }
+
+    public async Task SelectPageSize(int pagesize)
+    {
+        await OnSelectPageSize.InvokeAsync(pagesize);
     }
 }

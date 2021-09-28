@@ -32,8 +32,9 @@ else
                 TotalPages="totalPages"
                 TotalRecords="totalRecords"
                 CurrentPage="curPage"
-                PageSize="pageSize" 
-                OnSelectPage = "SelectCurrentPage"/>
+                PageSize="pageSize"
+                OnSelectPage="SelectCurrentPage"
+                OnSelectPageSize="SelectPageSize" />
 }
 
 @code {
@@ -52,13 +53,23 @@ else
         Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
 
         totalPages = Angajati.TotalPages;
-        totalRecords = Angajati.TotalCount;        
+        totalRecords = Angajati.TotalCount;
     }
 
     public async Task SelectCurrentPage(int currentPage)
     {
         curPage = currentPage;
         pageSize = 15;
+
+        Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
+
+        totalPages = Angajati.TotalPages;
+        totalRecords = Angajati.TotalCount;
+    }
+
+    public async Task SelectPageSize(int pagesize)
+    {
+        pageSize = pagesize;
 
         Angajati = await httpclient.GetFromJsonAsync<Pagination<Angajat>>(Endpoints.URLGetAllAngajati(curPage, pageSize));
 
