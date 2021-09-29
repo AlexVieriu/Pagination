@@ -1,0 +1,71 @@
+﻿@page "/"
+
+@inject HttpClient httpclient
+
+@if (AngajatiPagination == null)
+{
+    <p>Loading...</p>
+}
+
+else
+{
+    <table class="table table-sm table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>CodAngajat</th>
+                <th>Full Name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var angajat in AngajatiPagination.Data)
+            {
+                <tr>
+                    <td>@angajat.CodAngajat</td>
+                    <td>@angajat.FullName</td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            <PaginationComp TotalPages="(totalPages != 0? totalPages :1)"
+                        PageIndex="pageIndex"
+                        OnSelectedPage="SelectPage">
+            </PaginationComp>
+        </tfoot>
+    </table>
+}
+
+
+@code {
+    private Pagination<Angajat>? AngajatiPagination;
+
+    private int currentPage;
+    private int pageSize;
+
+    private int totalPages;
+    private int pageIndex;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentPage = 1;
+        pageSize = 10;
+
+        AngajatiPagination = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
+        (Endpoints.UrlGetAllAngajati(currentPage, pageSize));
+
+        totalPages = AngajatiPagination.TotalPages;
+        pageIndex = AngajatiPagination.CurrentPageNumber;
+    }
+
+    private void SelectPage()
+    {
+        // need currentPage, pageSize
+
+        //AngajatiPagination = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
+        //(Endpoints.UrlGetAllAngajati(currentPage, pageSize));
+
+        totalPages = AngajatiPagination.TotalPages;
+        pageIndex = AngajatiPagination.CurrentPageNumber;
+    }
+}

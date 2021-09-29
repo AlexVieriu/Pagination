@@ -1,0 +1,23 @@
+﻿<div class="p-xl-2">
+    <ul class="pagination">
+        @foreach (var pageItem in pageItems)
+        {
+            <li @onclick="@(()=> SelectCurrentPage(pageItem))">
+                @pageItem.PageIndex
+            </li>
+        }
+    </ul>
+</div>
+
+
+@code {
+    private List<PageItems> pageItems;
+
+    [Parameter]
+    public int TotalPages { get; set; }
+    [Parameter]
+    public int PageIndex { get; set; }
+    [Parameter]
+    public EventCallback<int> OnSelectedPage { get; set; }
+
+}
