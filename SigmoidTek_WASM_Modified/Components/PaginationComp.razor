@@ -1,23 +1,93 @@
-﻿<div class="p-xl-2">
-    <ul class="pagination">
-        @foreach (var pageItem in pageItems)
-        {
-            <li @onclick="@(()=> SelectCurrentPage(pageItem))">
-                @pageItem.PageIndex
-            </li>
-        }
-    </ul>
-</div>
+﻿@typeparam TClass
 
+@if (PgObj != null)
+{
+    <div>
+        <div class="p-xl-2">
+            <ul class="pagination">
+                @foreach (var pageItem in pageItems)
+                {
+                    <li @onclick="@(()=> SelectCurrentPage(pageItem))" style="cursor:pointer"
+                class="page-item @(pageItem.Enabled? "active": null)
+                                 @(pageItem.Active? null: "disabled")">
+
+                        <span class="page-link">@pageItem.Text</span>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div>
+            <select class="form-control" @onchange="SelectPageSize">
+                @foreach (var pagesize in pageSizeOptions)
+                {
+                    <option value=@pagesize>@pagesize</option>
+                }
+            </select>
+        </div>
+    </div>
+}
 
 @code {
-    private List<PageItems> pageItems;
+    private int radius = 3;
+    private int[] pageSizeOptions = new int[] { 10, 15, 20, 50 };
+    private List<PageItem> pageItems;
 
     [Parameter]
-    public int TotalPages { get; set; }
-    [Parameter]
-    public int PageIndex { get; set; }
-    [Parameter]
-    public EventCallback<int> OnSelectedPage { get; set; }
+    public Pagination<TClass>? PgObj { get; set; }
 
+    [Parameter]
+    public EventCallback<TClass> OnSelectedPage { get; set; }
+
+    [Parameter]
+    public EventCallback<TClass> OnChangePageSize { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        CreatePages();
+    }
+
+    private void CreatePages()
+    {
+        //1. Create the previous page.
+        pageItems.Add(new PageItem(PgObj.CurrentPageNumber - 1, PgObj.HasPreviousPage, "Prev"));
+
+        //2. Create pages and add them to the pageItems list.
+        if (radius > PgObj.TotalPages)
+            radius = PgObj.TotalPages - 1;
+
+        for (var i = PgObj.CurrentPageNumber - radius; i < PgObj.CurrentPageNumber + radius; i++)
+        {
+            pageItems.Add(new PageItem(i, true, i.ToString())
+                {
+                    Active = PgObj.CurrentPageNumber == i
+                });
+        }
+
+        //3. Create the next page.
+        pageItems.Add(new PageItem(PgObj.CurrentPageNumber + 1, PgObj.HasNextPage, "Next"));
+    }
+
+    private async Task SelectCurrentPage(PageItem pageItem)
+    {
+        if (PgObj.CurrentPageNumber == pageItem.PageIndex)
+            return;
+
+        if (!pageItem.Enabled)
+            return;
+
+        PgObj.CurrentPageNumber = pageItem.PageIndex;
+
+        await OnSelectedPage.InvokeAsync(PgObj);
+    }
+
+    private async Task SelectPageSize(ChangeEventArgs e)
+    {
+        PgObj.PageSize = Convert.ToInt32(e.Value);
+
+        await OnChangePageSize.InvokeAsync(PgObj);
+    }
 }
+
+
+
