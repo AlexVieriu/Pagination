@@ -1,0 +1,29 @@
+﻿@if (Note != null)
+{
+    <li class="@ClassName" @onmouseover="OnMouseOver" @onmouseout="OnMouseOut">
+        <span>@Note.Message</span>
+        <span>Created: @Note.Created.ToUniversalTime().ToString("dd mm yyyy")</span>
+        <button @onclick="OnDeleteNote">Delete</button>
+    </li>
+}
+
+
+@code {
+    [Parameter]
+    public Note Note { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnDeleteNote { get; set; }
+
+    public string ClassName { get; set; }
+
+    public void OnMouseOver(MouseEventArgs e)
+    {
+        ClassName = "highlight";
+    }
+
+    public void OnMouseOut(MouseEventArgs e)
+    {
+        ClassName = string.Empty;
+    }
+}

@@ -1,0 +1,21 @@
+﻿<div class="card p-2" style="width: 30rem;">
+    <p class="card-text">
+        @($"{Item.Text}({Item.CDate})")
+    </p>
+    <button class="btn btn-primary" @onclick="HandleDeleteItem" ></button>
+</div>
+
+
+@code {
+    [Parameter]
+    public Item? Item { get; set; }
+
+    [Parameter]
+    public EventCallback<> OnDeleteItem { get; set; }
+
+    public async void  HandleDeleteItem()
+    {
+        await OnDeleteItem.InvokeAsync();
+    }
+}
+

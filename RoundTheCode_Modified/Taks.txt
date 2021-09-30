@@ -1,0 +1,6 @@
+﻿-> make a BaseComp and a ChildComp 
+-> create a textarea and a button and transfer the information to the ChildComponent 
+-> create Delete button on ChildComponent to delete a comment 
+-> make the child component grey when hover the mouse over the item 
+-> create a 2s delay on submitting the comment to see how syncro method is freezing the app
+-> make it all async 

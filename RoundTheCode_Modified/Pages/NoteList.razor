@@ -1,0 +1,34 @@
+﻿@page "/"
+
+<div class="row">
+    <div class="col">
+        <textarea class="col-6" @bind="Comment"> @Comment</textarea><br />
+        <button class="btn btn-primary" @onclick="HandleSubmit">Submit</button>
+    </div>
+    <div class="col">
+        <div class="h4">List of Items</div>
+        @foreach (var item in Items)
+        {
+            <NoteViewComp Item="item" />
+        }
+    </div>
+</div>
+
+@code {
+    private string? Comment;
+    private IList<Item>? Items;
+
+    protected override void OnInitialized()
+    {
+        Items = new List<Item>();
+        base.OnInitialized();
+    }
+
+    private void HandleSubmit()
+    {
+        Items.Add(new Item() { Text = Comment });
+        Comment = string.Empty;
+        StateHasChanged();
+    }
+}
+
