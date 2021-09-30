@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@using System.Diagnostics
+
 <div class="row">
     <div class="col">
         <textarea class="col-6" @bind="Comment"> @Comment</textarea><br />
@@ -9,7 +11,7 @@
         <div class="h4">List of Items</div>
         @foreach (var item in Items)
         {
-            <NoteViewComp Item="item" />
+            <NoteViewComp Item="item" OnDeleteItem="@(()=> HandleDeleteItem(item))" />
         }
     </div>
 </div>
@@ -18,17 +20,26 @@
     private string? Comment;
     private IList<Item>? Items;
 
-    protected override void OnInitialized()
+    protected override Task OnInitializedAsync()
     {
         Items = new List<Item>();
-        base.OnInitialized();
+        return base.OnInitializedAsync();
     }
 
-    private void HandleSubmit()
+    private async Task HandleSubmit()
     {
+        await Task.Delay(2000);
+
         Items.Add(new Item() { Text = Comment });
         Comment = string.Empty;
-        StateHasChanged();
+    }
+
+    private async Task HandleDeleteItem(Item item)
+    {
+        if (Items?.Any(n => n == item) ?? false)
+        {
+            Items.Remove(Items.First(n => n == item));
+        }
     }
 }
 
