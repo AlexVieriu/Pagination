@@ -1,15 +1,15 @@
-﻿@typeparam TClass
+﻿@typeparam T
 
 @if (PgObj != null)
 {
-    <div>
+    <div class="d-flex justify-content-between">
         <div class="p-xl-2">
             <ul class="pagination">
                 @foreach (var pageItem in pageItems)
                 {
                     <li @onclick="@(()=> SelectCurrentPage(pageItem))" style="cursor:pointer"
-                class="page-item @(pageItem.Enabled? "active": null)
-                                 @(pageItem.Active? null: "disabled")">
+                class="page-item @(pageItem.Active ? "active" : null)
+                                 @(pageItem.Enabled ? null : "disabled")">
 
                         <span class="page-link">@pageItem.Text</span>
                     </li>
@@ -34,13 +34,13 @@
     private List<PageItem> pageItems;
 
     [Parameter]
-    public Pagination<TClass>? PgObj { get; set; }
+    public Pagination<T>? PgObj { get; set; }
 
     [Parameter]
-    public EventCallback<TClass> OnSelectedPage { get; set; }
+    public EventCallback<int> OnSelectedPage { get; set; }
 
     [Parameter]
-    public EventCallback<TClass> OnChangePageSize { get; set; }
+    public EventCallback<int> OnChangePageSize { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -49,23 +49,32 @@
 
     private void CreatePages()
     {
-        //1. Create the previous page.
+        pageItems = new();
+
+        //1.Create the back to start page
+        pageItems.Add(new PageItem(1, true, "Home"));
+
+        //2. Create the previous page.
         pageItems.Add(new PageItem(PgObj.CurrentPageNumber - 1, PgObj.HasPreviousPage, "Prev"));
 
-        //2. Create pages and add them to the pageItems list.
+        //3. Create pages and add them to the pageItems list.
         if (radius > PgObj.TotalPages)
             radius = PgObj.TotalPages - 1;
 
         for (var i = PgObj.CurrentPageNumber - radius; i < PgObj.CurrentPageNumber + radius; i++)
         {
-            pageItems.Add(new PageItem(i, true, i.ToString())
-                {
-                    Active = PgObj.CurrentPageNumber == i
-                });
+            if (i > 0 && i <= PgObj.TotalPages)
+                pageItems.Add(new PageItem(i, true, i.ToString())
+                    {
+                        Active = PgObj.CurrentPageNumber == i
+                    });
         }
 
-        //3. Create the next page.
+        //4. Create the next page.
         pageItems.Add(new PageItem(PgObj.CurrentPageNumber + 1, PgObj.HasNextPage, "Next"));
+
+        //5. Create the end page
+        pageItems.Add(new PageItem(PgObj.TotalPages, true, "End"));
     }
 
     private async Task SelectCurrentPage(PageItem pageItem)
@@ -76,16 +85,12 @@
         if (!pageItem.Enabled)
             return;
 
-        PgObj.CurrentPageNumber = pageItem.PageIndex;
-
-        await OnSelectedPage.InvokeAsync(PgObj);
+        await OnSelectedPage.InvokeAsync(pageItem.PageIndex);
     }
 
     private async Task SelectPageSize(ChangeEventArgs e)
     {
-        PgObj.PageSize = Convert.ToInt32(e.Value);
-
-        await OnChangePageSize.InvokeAsync(PgObj);
+        await OnChangePageSize.InvokeAsync(Convert.ToInt32(e.Value));
     }
 }
 

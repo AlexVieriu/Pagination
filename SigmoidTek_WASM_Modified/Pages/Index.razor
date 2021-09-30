@@ -28,7 +28,7 @@ else
         </tbody>
 
         <tfoot>
-            <PaginationComp Pagination = AngajatiPagination.Data"
+            <PaginationComp PgObj = "AngajatiPagination"
                             OnSelectedPage = "SelectCurrentPage"
                             OnChangePageSize="SelectPageSize">
             </PaginationComp>
@@ -37,8 +37,7 @@ else
 }
 
 
-@code {
-    private List<Angajat> Angajati;
+@code {    
     private Pagination<Angajat>? AngajatiPagination;
 
     private int currentPage;
@@ -52,18 +51,17 @@ else
         AngajatiPagination = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
         (Endpoints.UrlGetAllAngajati(currentPage, pageSize));
 
-        Angajati = AngajatiPagination.Data;
     }
 
-    private async Task SelectCurrentPage(Pagination<Angajat> pagination)
+    private async Task SelectCurrentPage(int pageIndex)
     {
         AngajatiPagination = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
-        (Endpoints.UrlGetAllAngajati(currentPage, pageSize));
+        (Endpoints.UrlGetAllAngajati(pageIndex, AngajatiPagination.PageSize));
     }
 
-    private async Task SelectPageSize(Pagination<Angajat>? pagination)
+    private async Task SelectPageSize(int pageSize)
     {      
         AngajatiPagination = await httpclient.GetFromJsonAsync<Pagination<Angajat>>
-        (Endpoints.UrlGetAllAngajati(pagination.CurrentPageNumber, pagination.PageSize)); 
+        (Endpoints.UrlGetAllAngajati(AngajatiPagination.CurrentPageNumber, pageSize)); 
     }
 }

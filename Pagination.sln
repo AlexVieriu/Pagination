@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AshProgHelp_WASM_Modified",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigmoidTek_WASM", "SigmoidTek_WASM\SigmoidTek_WASM.csproj", "{111666A0-598A-4E9B-ACF6-A30E3B6A87E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigmoidTek_WASM_Modified", "SigmoidTek_WASM_Modified\SigmoidTek_WASM_Modified.csproj", "{3A144BB2-EF97-49AE-9B96-9C8C92CBF75A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigmoidTek_WASM_Modified", "SigmoidTek_WASM_Modified\SigmoidTek_WASM_Modified.csproj", "{3A144BB2-EF97-49AE-9B96-9C8C92CBF75A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
